@@ -1,0 +1,20 @@
+### configure project ####
+provider "aws" {
+ region = "us-east-1"
+# access_key = "access-key"
+# secret_key = "secret-key"
+}
+
+## Deploy an EC2 instance ####
+
+resource "aws_instance" "web" {
+  count = "2"
+  ami           = "ami-080e1f13689e07408"
+  instance_type = "t2.small"
+  key_name = "jenkinskey"
+
+  tags = {
+    Name = "Test server-${count.index}"
+  }
+}
+
